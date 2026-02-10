@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fansby - Grow Your Social Media</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-red: #ff0000;
+            --dark-bg: #0a0a0a;
+            --light-text: #ffffff;
+            --dark-text: #000000;
+            --card-bg: #1a1a1a;
+            --border-color: #333;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--light-text);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(10, 10, 10, 0.95);
+            padding: 1rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-red);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--light-text);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-red);
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            padding: 4rem 5%;
+            text-align: center;
+            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--light-text);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #ccc;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-red);
+            color: white;
+            padding: 1rem 3rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 0, 0, 0.3);
+        }
+
+        /* Services Section */
+        .services {
+            padding: 4rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--primary-red);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-red);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            color: var(--primary-red);
+            margin-bottom: 1rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .price {
+            font-size: 2rem;
+            color: var(--primary-red);
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+
+        .btn-order {
+            background: var(--primary-red);
+            color: white;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            transition: opacity 0.3s;
+        }
+
+        .btn-order:hover {
+            opacity: 0.9;
+        }
+
+        /* Categories Section */
+        .categories {
+            padding: 4rem 5%;
+            background: #111;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .category-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .category-card:hover {
+            transform: scale(1.05);
+            border-color: var(--primary-red);
+        }
+
+        .category-header {
+            padding: 2rem;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .facebook { background: #1877f2; }
+        .tiktok { background: #000; border: 1px solid #333; }
+        .instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+        .youtube { background: #ff0000; }
+
+        .category-body {
+            padding: 1.5rem;
+        }
+
+        .category-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 4rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 4px solid var(--primary-red);
+        }
+
+        .stars {
+            color: #ffd700;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1rem;
+            color: #ccc;
+        }
+
+        .testimonial-author {
+            font-weight: bold;
+            color: var(--primary-red);
+        }
+
+        /* Checkout Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            max-width: 600px;
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--light-text);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background: #0a0a0a;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .order-summary {
+            background: #0a0a0a;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+            border: 1px solid var(--border-color);
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 0.5rem 0;
+        }
+
+        .summary-total {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--primary-red);
+            border-top: 1px solid var(--border-color);
+            padding-top: 1rem;
+            margin-top: 1rem;
+        }
+
+        .trust-badges {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            text-align: center;
+            color: #ccc;
+        }
+
+        .badge i {
+            font-size: 2rem;
+            color: var(--primary-red);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .notice {
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid var(--primary-red);
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+
+        .delivery-time {
+            text-align: center;
+            color: #00ff00;
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+
+        /* Footer */
+        footer {
+            background: #000;
+            padding: 2rem 5%;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links a {
+            color: var(--light-text);
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--primary-red);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            .mobile-menu {
+                display: block;
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .modal-content {
+                margin: 10% 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">fansby</a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#categories">Categories</a></li>
+                <li><a href="#reviews">Reviews</a></li>
+            </ul>
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <h1>Grow Your Social Media Today!</h1>
+        <p>ඔබේ Facebook, TikTok, Instagram, YouTube ගිණුම් වේගයෙන් වර්ධනය කරගන්න. සැබෑ followers, likes, views ලබාගන්න.</p>
+        <a href="#services" class="btn-primary">Order Now</a>
+    </section>
+
+    <!-- Top Services (Cheap Packages) -->
+    <section class="services" id="services">
+        <h2 class="section-title">🔥 Popular Packages</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon"><i class="fab fa-tiktok"></i></div>
+                <h3>TikTok Followers</h3>
+                <p>1,000 Real Followers</p>
+                <div class="price">$4.99</div>
+                <button class="btn-order" onclick="openOrder('TikTok Followers', 4.99, '1000 Followers')">Order Now</button>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fab fa-facebook"></i></div>
+                <h3>Facebook Page Likes</h3>
+                <p>500 Page Likes</p>
+                <div class="price">$3.99</div>
+                <button class="btn-order" onclick="openOrder('Facebook Likes', 3.99, '500 Likes')">Order Now</button>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fab fa-instagram"></i></div>
+                <h3>Instagram Followers</h3>
+                <p>1,000 Followers</p>
+                <div class="price">$5.99</div>
+                <button class="btn-order" onclick="openOrder('Instagram Followers', 5.99, '1000 Followers')">Order Now</button>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fab fa-youtube"></i></div>
+                <h3>YouTube Views</h3>
+                <p>5,000 Views</p>
+                <div class="price">$9.99</div>
+                <button class="btn-order" onclick="openOrder('YouTube Views', 9.99, '5000 Views')">Order Now</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="categories" id="categories">
+        <h2 class="section-title">📱 Browse by Platform</h2>
+        <div class="categories-grid">
+            <div class="category-card" onclick="showCategory('facebook')">
+                <div class="category-header facebook">
+                    <i class="fab fa-facebook"></i> Facebook
+                </div>
+                <div class="category-body">
+                    <div class="category-item">
+                        <span>Page Likes</span>
+                        <span>From $2</span>
+                    </div>
+                    <div class="category-item">
+                        <span>Post Likes</span>
+                        <span>From $1</span>
+                    </div>
+                    <div class="category-item">
+                        <span>Followers</span>
+                        <span>From $3</span>
+                    </div>
+                </div>
+            </div>
+            <div class="category-card" onclick="showCategory('tiktok')">
+                <div class="category-header tiktok">
+                    <i class="fab fa-tiktok"></i> TikTok
+                </div>
+                <div class="category-body">
+                    <div class="category-item">
+                        <span>Followers</span>
+                        <span>From $4</span>
+                    </div>
+                    <div class="category-item">
+                        <span>Likes</span>
+                        <span>From $2</span>
+                    </div>
+                    <div class="category-item">
+                        <span>Views</span>
+                        <span>From $1</span>
+                    </div>
+                </div>
+            </div>
+            <div class="category-card" onclick="showCategory('instagram')">
+                <div class="category-header instagram">
+                    <i class="fab fa-instagram"></i> Instagram
+                </div>
+                <div class="category-body">
+                    <div class="category-item">
+                        <span>Followers</span>
+                        <span>From $5</span>
+                    </div>
+                    <div class="category-item">
+                        <span>Likes</span>
+                        <span>From $2</span>
+                    </div>
+                    <div class="category-item">
+                        <span>Views</span>
+                        <span>From $1</span>
+                    </div>
+                </div>
+            </div>
+            <div class="category-card" onclick="showCategory('youtube')">
+                <div class="category-header youtube">
+                    <i class="fab fa-youtube"></i> YouTube
+                </div>
+                <div class="category-body">
+                    <div class="category-item">
+                        <span>Subscribers</span>
+                        <span>From $10</span>
+                    </div>
+                    <div class="category-item">
+                        <span>Views</span>
+                        <span>From $5</span>
+                    </div>
+                    <div class="category-item">
+                        <span>Likes</span>
+                        <span>From $3</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials" id="reviews">
+        <h2 class="section-title">⭐ Customer Reviews</h2>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p class="testimonial-text">"මගේ TikTok account එක followers 1000ක් ආවා පැය 6ක් ඇතුළත. සුපිරි සේවාවක්!"</p>
+                <div class="testimonial-author">- Kasun Perera</div>
+            </div>
+            <div class="testimonial-card">
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p class="testimonial-text">"Facebook page එකේ likes වැඩි වුණා. Customer support එකත් හොඳයි."</p>
+                <div class="testimonial-author">- Nisansala Silva</div>
+            </div>
+            <div class="testimonial-card">
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                </div>
+                <p class="testimonial-text">"YouTube views ගත්තා. Delivery ටිකක් late උනත් quality හොඳයි."</p>
+                <div class="testimonial-author">- Tharindu Fernando</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Checkout Modal -->
+    <div id="orderModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <h2 style="color: var(--primary-red); margin-bottom: 1.5rem;">Complete Your Order</h2>
+            
+            <div class="order-summary">
+                <h3 style="margin-bottom: 1rem; color: white;">Order Summary</h3>
+                <div class="summary-row">
+                    <span>Service:</span>
+                    <span id="modalService">-</span>
+                </div>
+                <div class="summary-row">
+                    <span>Quantity:</span>
+                    <span id="modalQuantity">-</span>
+                </div>
+                <div class="summary-row summary-total">
+                    <span>Total:</span>
+                    <span id="modalPrice">$0.00</span>
+                </div>
+            </div>
+
+            <div class="delivery-time">
+                <i class="fas fa-clock"></i> ඔබේ ඇණවුම පැය 1-24 අතර කාලයකදී ආරම්භ වේ
+            </div>
+
+            <form id="orderForm" onsubmit="submitOrder(event)">
+                <div class="form-group">
+                    <label>Email Address *</label>
+                    <input type="email" required placeholder="your@email.com">
+                </div>
+                
+                <div class="form-group">
+                    <label>Social Media Link (Profile/Post URL) *</label>
+                    <input type="url" required placeholder="https://www.tiktok.com/@username">
+                </div>
+
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" placeholder="+94 77 123 4567">
+                </div>
+
+                <div class="notice">
+                    <strong>⚠️ වැදගත්:</strong> වැරදි Link ලබා දීමෙන් වන පාඩුව අප විසින් දරනු නොලැබේ. කරුණාකර නිවැරදි URL එක පිරවීමට වගබලා ගන්න.
+                </div>
+
+                <div class="trust-badges">
+                    <div class="badge">
+                        <i class="fas fa-shield-alt"></i>
+                        <small>100% Secure</small>
+                    </div>
+                    <div class="badge">
+                        <i class="fas fa-lock"></i>
+                        <small>SSL Protected</small>
+                    </div>
+                    <div class="badge">
+                        <i class="fas fa-check-circle"></i>
+                        <small>Verified</small>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary" style="width: 100%;">
+                    <i class="fas fa-lock"></i> Pay Securely
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-tiktok"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+            <p>&copy; 2024 fansby. All rights reserved.</p>
+            <p style="margin-top: 0.5rem; color: #666; font-size: 0.9rem;">
+                Secure Social Media Growth Services
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Modal Functions
+        function openOrder(service, price, quantity) {
+            document.getElementById('modalService').textContent = service;
+            document.getElementById('modalQuantity').textContent = quantity;
+            document.getElementById('modalPrice').textContent = '$' + price.toFixed(2);
+            document.getElementById('orderModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('orderModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function showCategory(category) {
+            alert(category + ' services page එක ඉක්මනිම එකතු කෙරේ!');
+        }
+
+        function submitOrder(e) {
+            e.preventDefault();
+            alert('ඇණවුම සාර්ථකව ලැබුණා! ඔබට confirmation email එකක් යවනු ලැබේ.\n\nOrder received successfully! You will receive a confirmation email.');
+            closeModal();
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('orderModal')) {
+                closeModal();
+            }
+        }
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
